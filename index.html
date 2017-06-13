@@ -1,18 +1,149 @@
 <html>
 	<head>
+
+		<title>Gee-Mail</title>
 		<script src="js/mail-generator.js"></script>
 		<link href="css/style.css" rel="stylesheet" media="screen">
+
     <script>
-      window.onload = function(){
+      	window.onload = function(){
         // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
         // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
+
+        // Creates initial inbox count
+        var inboxTotal = document.createElement("div");
+        	inboxTotal.id = "inboxTotal";
+        	inboxTotal.innerHTML = "Inbox: " + geemails.length;
+        	main.appendChild(inboxTotal);
+
+        // Updates inbox count based on interval
+        function counter() {
+
+            var inboxCounter = document.getElementById("inboxTotal");
+                inboxCounter.innerHTML = "Inbox: " + (geemails.length += 1);
+        }
+	
+		// Populates first set of messages
+
+            for (var i = 0; i < window.geemails.length; i++) {
+
+            	var mailContainer = document.createElement("div");
+            		mailContainer.className = "geeMailContainer";
+            		main.appendChild(mailContainer);
+
+            	var date = document.createElement("div");
+            		date.className = "geeMailDate";
+            		date.innerHTML = window.geemails[i].date;
+            		mailContainer.appendChild(date);
+
+                var sender = document.createElement("div");
+                    sender.className = "geeMailSender";
+                    sender.innerHTML = window.geemails[i].sender;
+                    mailContainer.appendChild(sender);   
+
+            	var subject = document.createElement("div");
+            		subject.className = "geeMailSubject";
+            		subject.innerHTML = window.geemails[i].subject;
+            		mailContainer.appendChild(subject);     	
+
+            	var body = document.createElement("div");
+            		body.className = "geeMailBody";
+            		body.innerHTML = window.geemails[i].body;
+                    body.style.display = "none";
+            		mailContainer.appendChild(body);
+
+            }
+
+        // Adds a new message based on interval
+        function loadNewMessage() {
+
+        	var newGeeMail = getNewMessage();
+
+        	var newContainer = document.createElement("div");
+        		newContainer.className = "geeMailContainer";
+        		main.appendChild(newContainer);
+
+        	var newDate = document.createElement("div");
+        		newDate.className = "geeMailDate";
+        		newDate.innerHTML = newGeeMail.date;
+        		mailContainer.appendChild(newDate);
+
+            var newSender = document.createElement("div");
+                newSender.clasName = "geeMailSender";
+                newSender.innerHTML = newGeeMail.sender;
+                mailContainer.appendChild(newSender);
+
+        	var newSubject = document.createElement("div");
+        		newSubject.className = "geeMailSubject";
+        		newSubject.innerHTML = newGeeMail.subject;
+        		mailContainer.appendChild(newSubject);
+
+        	var newBody = document.createElement("div");
+        		newBody.className = "geeMailBody";
+        		newBody.innerHTML = newGeeMail.body;
+                newBody.style.display = "none";
+        		mailContainer.appendChild(newBody);
+
+            // Toggle to show/hide message body
+        	var clickThis = document.getElementByClassName("geeMailSender");
+
+	        for (var j = 0; j < clickThis.length; j++) {
+	        	clickThis[j].addEventListener("click", showBody);
+	        }
+
+            function showBody() {
         
-      };
+                var showMailBody = this.querySelectorAll(".geeMailBody")[0];
+
+                if (showMailBody.style.display === "none") {
+                    showMailBody.style.display = "block";
+                    
+                } else {
+                    showMailBody.style.display = "none";
+                }
+
+            }
+        }
+
+        // Intervals to update inbox count and to load new messages
+        setInterval(counter, 5000);
+        setInterval(loadNewMessage, 5000);
+
+        // Toggle to show/hide message body
+        var clickThis = document.getElementByClassName("geeMailSender");
+
+	    for (var j = 0; j < clickThis.length; j++) {
+	        clickThis[j].addEventListener("click", showNewBody);
+	    }
+
+        function showNewBody() {
+        
+            var showNewMailBody = this.querySelectorAll(".geeMailBody")[0];
+
+            if (showNewMailBody.style.display === "none") {
+                showNewMailBody.style.display = "block";
+                    
+            } else {
+                showNewMailBody.style.display = "none";
+            }
+
+        }
+
+      }; // end window.onload
+
     </script>
 	</head>
 	<body>
-		<div class="container" id="main">
+
+        <div id = "skeleton">
 			Build Me!
 		</div>
+
+		<div class="gee-mail">
+			<h1>Welcome to Gee-Mail by Nitharios</h1>
+		</div>
+
+		<div id = "main"></div>
+
 	</body>
 </html>
