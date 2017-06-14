@@ -5,52 +5,74 @@
 		<script src="js/mail-generator.js"></script>
 		<link href="css/style.css" rel="stylesheet" media="screen">
 
+        <!--Accesses "Roboto" font-->
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+
     <script>
       	window.onload = function(){
         // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
         // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
 
         // Creates initial inbox count
-        var inboxTotal = document.createElement("div");
-        	inboxTotal.id = "inboxTotal";
-        	inboxTotal.innerHTML = "Inbox: " + geemails.length;
-        	main.appendChild(inboxTotal);
+        var inbox = document.createElement("div");
+            inbox.className = "navigation";
+        	inbox.id = "inboxTotal";
+        	inbox.innerHTML = "Inbox (" + geemails.length + ")";
+        	main.appendChild(inbox);
+
+        // Extra tabs, no functionality
+        var draft = document.createElement("div");
+            draft.className = "navigation";
+            draft.id = "draftTotal";
+            draft.innerHTML = "Drafts";
+            main.appendChild(draft);
+
+        var sent = document.createElement("div");
+            sent.className = "navigation";
+            sent.id = "sentTotal";
+            sent.innerHTML = "Sent";
+            main.appendChild(sent);
+
+        var spam = document.createElement("div");
+            spam.className = "navigation";
+            spam.id = "spamTotal";
+            spam.innerHTML = "Spam";
+            main.appendChild(spam);
 
         // Updates inbox count based on interval
         function counter() {
 
             var inboxCounter = document.getElementById("inboxTotal");
-                inboxCounter.innerHTML = "Inbox: " + (geemails.length += 1);
+                inboxCounter.innerHTML = "Inbox (" + (geemails.length += 1) + ")";
         }
 	
 		// Populates first set of messages
+        for (var i = 0; i < window.geemails.length; i++) {
 
-            for (var i = 0; i < window.geemails.length; i++) {
+            var mailContainer = document.createElement("div");
+            	mailContainer.className = "geeMailContainer";
+            	within.appendChild(mailContainer);
 
-            	var mailContainer = document.createElement("div");
-            		mailContainer.className = "geeMailContainer";
-            		main.appendChild(mailContainer);
+            var date = document.createElement("div");
+            	date.className = "geeMailDate";
+            	date.innerHTML = window.geemails[i].date;
+            	mailContainer.appendChild(date);
 
-            	var date = document.createElement("div");
-            		date.className = "geeMailDate";
-            		date.innerHTML = window.geemails[i].date;
-            		mailContainer.appendChild(date);
+            var sender = document.createElement("div");
+                sender.className = "geeMailSender";
+                sender.innerHTML = window.geemails[i].sender;
+                mailContainer.appendChild(sender);   
 
-                var sender = document.createElement("div");
-                    sender.className = "geeMailSender";
-                    sender.innerHTML = window.geemails[i].sender;
-                    mailContainer.appendChild(sender);   
+            var subject = document.createElement("div");
+            	subject.className = "geeMailSubject";
+            	subject.innerHTML = window.geemails[i].subject;
+            	mailContainer.appendChild(subject);     	
 
-            	var subject = document.createElement("div");
-            		subject.className = "geeMailSubject";
-            		subject.innerHTML = window.geemails[i].subject;
-            		mailContainer.appendChild(subject);     	
-
-            	var body = document.createElement("div");
-            		body.className = "geeMailBody";
-            		body.innerHTML = window.geemails[i].body;
-                    body.style.display = "none";
-            		mailContainer.appendChild(body);
+            var body = document.createElement("div");
+            	body.className = "geeMailBody";
+            	body.innerHTML = window.geemails[i].body;
+                body.style.display = "none";
+            	mailContainer.appendChild(body);
 
             }
 
@@ -59,9 +81,9 @@
 
         	var newGeeMail = getNewMessage();
 
-        	var newContainer = document.createElement("div");
-        		newContainer.className = "geeMailContainer";
-        		main.appendChild(newContainer);
+        	var mailContainer = document.createElement("div");
+        		mailContainer.className = "geeMailContainer";
+        		within.appendChild(mailContainer);
 
         	var newDate = document.createElement("div");
         		newDate.className = "geeMailDate";
@@ -84,8 +106,8 @@
                 newBody.style.display = "none";
         		mailContainer.appendChild(newBody);
 
-            // Toggle to show/hide message body
-        	var clickThis = document.getElementByClassName("geeMailSender");
+            // Toggle to show/hide message body for new messages
+        	var clickThis = document.getElementsByClassName("geeMailContainer");
 
 	        for (var j = 0; j < clickThis.length; j++) {
 	        	clickThis[j].addEventListener("click", showBody);
@@ -106,11 +128,11 @@
         }
 
         // Intervals to update inbox count and to load new messages
-        setInterval(counter, 5000);
-        setInterval(loadNewMessage, 5000);
+        setInterval(counter, 10000);
+        setInterval(loadNewMessage, 10000);
 
-        // Toggle to show/hide message body
-        var clickThis = document.getElementByClassName("geeMailSender");
+        // Toggle to show/hide message body for original messages
+        var clickThis = document.getElementsByClassName("geeMailContainer");
 
 	    for (var j = 0; j < clickThis.length; j++) {
 	        clickThis[j].addEventListener("click", showNewBody);
@@ -135,15 +157,17 @@
 	</head>
 	<body>
 
-        <div id = "skeleton">
-			Build Me!
-		</div>
-
-		<div class="gee-mail">
+		<div id="heading">
 			<h1>Welcome to Gee-Mail by Nitharios</h1>
 		</div>
 
-		<div id = "main"></div>
+        <p>
+
+		<div class = "container" id = "main">
+      
+             <div id = "within"></div>
+
+        </div>
 
 	</body>
 </html>
