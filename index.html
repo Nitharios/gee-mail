@@ -1,7 +1,7 @@
 <html>
 	<head>
 
-		<title>Gee-Mail</title>
+		<title>GeegeeMail</title>
 		<script src="js/mail-generator.js"></script>
 		<link href="css/style.css" rel="stylesheet" media="screen">
 
@@ -110,18 +110,18 @@
         	var clickThis = document.getElementsByClassName("geeMailContainer");
 
 	        for (var j = 0; j < clickThis.length; j++) {
-	        	clickThis[j].addEventListener("click", showBody);
+	        	clickThis[j].addEventListener("click", showNewBody);
 	        }
 
-            function showBody() {
+            function showNewBody() {
         
-                var showMailBody = this.querySelectorAll(".geeMailBody")[0];
+                var showNewMailBody = this.querySelectorAll(".geeMailBody")[0];
 
-                if (showMailBody.style.display === "none") {
-                    showMailBody.style.display = "block";
+                if (showNewMailBody.style.display === "none") {
+                    showNewMailBody.style.display = "block";
                     
                 } else {
-                    showMailBody.style.display = "none";
+                    showNewMailBody.style.display = "none";
                 }
 
             }
@@ -135,18 +135,18 @@
         var clickThis = document.getElementsByClassName("geeMailContainer");
 
 	    for (var j = 0; j < clickThis.length; j++) {
-	        clickThis[j].addEventListener("click", showNewBody);
+	        clickThis[j].addEventListener("click", showBody);
 	    }
 
-        function showNewBody() {
+        function showBody() {
         
-            var showNewMailBody = this.querySelectorAll(".geeMailBody")[0];
+            var showMailBody = this.querySelectorAll(".geeMailBody")[0];
 
-            if (showNewMailBody.style.display === "none") {
-                showNewMailBody.style.display = "block";
+            if (showMailBody.style.display === "none") {
+                showMailBody.style.display = "block";
                     
             } else {
-                showNewMailBody.style.display = "none";
+                showMailBody.style.display = "none";
             }
 
         }
@@ -158,7 +158,7 @@
 	<body>
 
 		<div id="heading">
-			<h1>Welcome to Gee-Mail by Nitharios</h1>
+			<h1>Welcome to GeeMail by Nitharios</h1>
 		</div>
 
         <p>
